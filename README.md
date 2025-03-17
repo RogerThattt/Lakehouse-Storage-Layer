@@ -67,3 +67,18 @@ ML Predictions	Output / Predictions	Written back to Delta table or external targ
 
 "In Databricks Lakehouse, our Parquet and Delta data physically resides in cloud object storage like S3 or ADLS. The Delta Lake transaction log ensures ACID compliance. For machine learning, we register our models using MLflow, which stores model artifacts in DBFS and tracks experiments. This architecture allows us to seamlessly query, train models, and serve predictions at scale." 
 
+
+Simple Rule of Thumb
+Ask This	If Yes → Persist	If No → Cache/Stream
+Will this data impact business operations?		
+Is this needed for audits, compliance, or billing?		
+Will multiple systems or users need this later?		
+Will you perform reporting or analytics on it?		
+
+# Don't persist this - temporary data
+session_cache['user_1234'] = 'authenticated'
+
+# Persist this - impacts billing
+db.insert('usage_records', {'customer': 'ABC', 'data_used': 100, 'timestamp': now})
+
+
