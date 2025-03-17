@@ -1,0 +1,17 @@
+from elasticsearch import Elasticsearch
+
+es = Elasticsearch()
+
+ticket = {
+    'ticket_id': 'TICKET456',
+    'customer_id': 'CUST1234',
+    'issue': 'No connectivity',
+    'severity': 'High',
+    'timestamp': '2024-12-05T10:00:00'
+}
+
+es.index(index='oss_tickets', id='TICKET456', body=ticket)
+
+# Example search by severity
+result = es.search(index="oss_tickets", query={"match": {"severity": "High"}})
+print(result)

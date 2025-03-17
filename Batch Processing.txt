@@ -1,0 +1,7 @@
+Batch Processing
+
+SELECT customer_id, SUM(data_usage_gb) AS total_usage
+FROM usage_records
+WHERE usage_date BETWEEN '2025-02-01' AND '2025-02-28'
+GROUP BY customer_id
+ORDER BY total_usage DESC;

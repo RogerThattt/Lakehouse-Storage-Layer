@@ -1,0 +1,10 @@
+Caches (Speed Up Reads)
+
+import redis
+
+r = redis.Redis(host='localhost', port=6379, db=0)
+r.set('active_order:CUST1234', '{"orderId":"ORD789", "status":"In Progress"}', ex=3600)
+
+# Retrieve from cache
+order_data = r.get('active_order:CUST1234')
+print(order_data)
