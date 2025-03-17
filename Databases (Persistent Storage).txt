@@ -1,0 +1,13 @@
+import psycopg2
+
+conn = psycopg2.connect("dbname=telecom user=oss_user password=secret")
+cur = conn.cursor()
+
+cur.execute("""
+    INSERT INTO customer_data (customer_id, name, service_type, status)
+    VALUES (%s, %s, %s, %s)
+""", ('CUST1234', 'ABC Corp', 'Internet', 'Active'))
+
+conn.commit()
+cur.close()
+conn.close()
